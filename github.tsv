@@ -1,0 +1,16 @@
+Committing to GitHub
+
+#GitClone
+git clone https://github.com/Stoot-T/DSB-26-Group2.git
+#enter username and password
+#cd into new repo 
+cd DSB-26-Group2
+
+#create new branch (merge later)
+git checkout -b [branch_name]
+
+#create/ run sbatch, import/sort data, etc. 
+#push new info to GitHub
+git push origin HPC_cat
+
+#for soem reason if I use my github username when asked it doesnt work but using my token password as both username and password does
