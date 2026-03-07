@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=denisovan_readalign
+#SBATCH --job-name=read_mapping_denisovan
 #SBATCH --time=36:00:00
 #SBATCH --mem=36G
 #SBATCH --cpus-per-task=8
@@ -13,16 +13,25 @@
 #final script  could have a generic email-  this will avoid me being emailed when they test it lol
 #can someone else test the email part as it doesn't work for
 #could include further directories for tidier data
-#index own reference genome  
+#index own reference genome 
+#should we make it all snake case  
 #remove these comments for final commit
 
-#module load
+# Required Output Directories:
+# - /DSB-26-Group2/
+# - /Output_Messages
+# - /Error_Messages
+# - /mapped_sam
+# - /mapped_bam
+
+# Load required modules
 module load  bwa/0.7.19
 module load  samtools/1.21
 
-# Stop on errors
+# Bash scriptmode: forces script to fail immediately and explicitly when error occurs in script
 set -euo pipefail
 
+# Defining variables contining paths to file locations
 rawdata="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/raw"
 reference="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/reference"
 mappedsam="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/mapped_sam_and_bam"
