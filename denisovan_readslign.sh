@@ -46,7 +46,7 @@ sortedfiles="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/sorted_files"
 txtout="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/txt_output"
 
 # Create directories if they do not already exist
-# -P specifies the absolute file path using the variables created to ensure directories created in correct location D
+# -p specifies the absolute file path using the variables created to ensure directories created in correct location D
 mkdir -p "$rawdata"
 mkdir -p "$reference"
 mkdir -p "$mappedsam"
@@ -73,8 +73,9 @@ wget -nc -P "$reference" https://ftp.ensembl.org/pub/release-113/fasta/homo_sapi
 
 # Decompress the reference genome
 # -k tells gunzip to retain the original zip file
+# -f forces overwrite of existing file to prevent error causing the job to terminate
 echo "Decompressing reference genome..."
-gunzip -k "${reference}/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz"
+gunzip -kf "${reference}/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz"
 
 # Index the reference genome with BWA (required before alignment)
 # This creates several index files used by bwa mem during alignment
@@ -103,7 +104,7 @@ for id in ERR145618 ERR145620 ERR145622 ERR145624; do
     samtools index "${sortedfiles}/${id}.sorted.bam"
 
 # Generate alignment statistics (mapped, unmapped, duplicates, etc.)
-    samtools flagstat "${sortedfiles}/${id}.sorted.bam"
+    samtools flagstat "${sortedfiles}/${id}.sorted.bam" > "${txtout}/${id}_flagstat.txt"
 
 # Compute per‑contig coverage, sort by coverage column (7th), and format output
 # -k7= sorts by coverage column
