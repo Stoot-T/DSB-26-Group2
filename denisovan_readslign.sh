@@ -11,6 +11,8 @@
 
 
 #reanme sbatch it has a typo
+#this script needs proofreading to remove my extra comments, spellchecking and ensuring comment format is consistent
+#script also needs to run completely to ensure it functions correctly
 #final script  could have a generic email-  this will avoid me being emailed when they test it lol
 #can someone else test the email part as it doesn't work for me
 #index own reference genome 
@@ -30,7 +32,10 @@
 module load  bwa/0.7.19
 module load  samtools/1.21
 
-# Bash scriptmode: forces script to exit immediately on error, undefined variable, or failed pipe to help troubleshooting
+# Bash scriptmode: forces script to exit immediately on error to help troubleshooting
+# -e= exit immidietely if command fails
+# -u= treat undefined variables as errors
+# -o pipefail= if any command in the pipe fails the whole pipe will fail
 set -euo pipefail
 
 # Defining variables containing paths to file locations for raw data, samtools outputs and a final .txt summary of samtools coverage
@@ -42,6 +47,7 @@ sortedfiles="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/sorted_files"
 txtout="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/txt_output"
 
 # Create directories if they do not already exist
+# -P specifies the absolute file path using the variables created to ensure directories created in correct location D
 mkdir -p "$rawdata"
 #mkdir -p "$reference"
 mkdir -p "$mappedsam"
@@ -66,10 +72,13 @@ for id in ERR145618 ERR145620 ERR145622 ERR145624; do
 # Align paired-end reads to the human reference genome using BWA-MEM
     bwa mem "/gpfs/data/BIO-DSB/Session4/ref/human-ref-GRCh38.fasta" "${rawdata}/${id}_1.fastq.gz" "${rawdata}/${id}_2.fastq.gz" > "${mappedsam}/${id}.sam"
 
-# Convert SAM to BAM (binary, compressed)
+# Convert SAM to BAM
+# -b= output in BAM format (binary) rather than SAM (text)
     samtools view -b "${mappedsam}/${id}.sam" > "${mappedbam}/${id}.bam"
 
 # Sort BAM file by genomic coordinates using 4 threads
+# -@ 4= specifices 4 additional threads
+# -o= specifies output file name
     samtools sort -@ 4 -o "${sortedfiles}/${id}.sorted.bam" "${mappedbam}/${id}.bam"
 
 # Index sorted BAM for fast random access
@@ -78,8 +87,11 @@ for id in ERR145618 ERR145620 ERR145622 ERR145624; do
 # Generate alignment statistics (mapped, unmapped, duplicates, etc.)
     samtools flagstat "${sortedfiles}/${id}.sorted.bam"
 
- # Compute per‑contig coverage, sort by coverage column (7th), and format output
+# Compute per‑contig coverage, sort by coverage column (7th), and format output
+# -k7= sorts by coverage column
+# -r= sort in descending order
+# -t= tabular output format
     samtools coverage "${sortedfiles}/${id}.sorted.bam" | sort -k7r | column -t > "${txtout}/${id}_coverage.txt"
 done
 
-echo "All samples processed successfully. Outputs are in: $OUTPUT_DIR"
+echo "All samples processed successfully"
