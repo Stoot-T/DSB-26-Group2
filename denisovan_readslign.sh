@@ -15,8 +15,8 @@
 #script also needs to run completely to ensure it functions correctly
 #final script  could have a generic email-  this will avoid me being emailed when they test it lol
 #can someone else test the email part as it doesn't work for me
-#index own reference genome 
-#should we make it all snake case  
+#index own reference genome
+#should we make it all snake case
 #remove these comments for final commit
 
 # Required Output Directories:
@@ -40,7 +40,7 @@ set -euo pipefail
 
 # Defining variables containing paths to file locations for raw data, samtools outputs and a final .txt summary of samtools coverage
 rawdata="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/raw"
-#reference="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/reference"
+reference="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/reference"
 mappedsam="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/mapped_sam"
 mappedbam="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/mapped_bam"
 sortedfiles="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/sorted_files"
@@ -49,7 +49,7 @@ txtout="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/txt_output"
 # Create directories if they do not already exist
 # -P specifies the absolute file path using the variables created to ensure directories created in correct location D
 mkdir -p "$rawdata"
-#mkdir -p "$reference"
+mkdir -p "$reference"
 mkdir -p "$mappedsam"
 mkdir -p "$mappedbam"
 mkdir -p "$sortedfiles"
@@ -58,7 +58,7 @@ echo "Created/checked output directories"
 
 # Download zip files into rawdata directory for our four chosen paired-end read files
 # -nc prevents redownloading existing files (no clobber)
-# -p tells the script to download files in the rawdata directory 
+# -P tells the script to download files in the rawdata directory
 echo "Starting FASTQ downloads..."
 for id in ERR145618 ERR145620 ERR145622 ERR145624; do
     wget -nc -P "$rawdata" ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR145/${id}/${id}_1.fastq.gz
@@ -66,11 +66,30 @@ for id in ERR145618 ERR145620 ERR145622 ERR145624; do
 done
 echo "FASTQ download step complete"
 
+# Download the human reference genome (GRCh38) from Ensembl
+echo "Downloading human reference genome..."
+# -nc prevents redownloading existing files (no clobber)
+# -P tells the script to download files in the reference directory
+wget -nc -P "$reference" https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+
+# Decompress the reference genome
+# -k tells gunzip to retain the original zip file
+echo "Decompressing reference genome..."
+gunzip -k "${reference}/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz"
+
+# Index the reference genome with BWA (required before alignment)
+# This creates several index files used by bwa mem during alignment
+echo "Indexing reference genome..."
+bwa index "${reference}/Homo_sapiens.GRCh38.dna.primary_assembly.fa"
+
+echo "Reference genome ready"
+
+
 # Sample analysis
 echo "Starting alignment and BAM processing..."
 for id in ERR145618 ERR145620 ERR145622 ERR145624; do
 # Align paired-end reads to the human reference genome using BWA-MEM
-    bwa mem "/gpfs/data/BIO-DSB/Session4/ref/human-ref-GRCh38.fasta" "${rawdata}/${id}_1.fastq.gz" "${rawdata}/${id}_2.fastq.gz" > "${mappedsam}/${id}.sam"
+    bwa mem "${reference}/Homo_sapiens.GRCh38.dna.primary_assembly.fa" "${rawdata}/${id}_1.fastq.gz" "${rawdata}/${id}_2.fastq.gz" > "${mappedsam}/${id}.sam"
 
 # Convert SAM to BAM
 # -b= output in BAM format (binary) rather than SAM (text)
