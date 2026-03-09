@@ -15,7 +15,6 @@
 #script also needs to run completely to ensure it functions correctly
 #final script  could have a generic email-  this will avoid me being emailed when they test it lol
 #can someone else test the email part as it doesn't work for me
-#index own reference genome
 #should we make it all snake case
 #remove these comments for final commit
 
