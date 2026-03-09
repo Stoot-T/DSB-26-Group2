@@ -11,12 +11,11 @@
 
 
 #reanme sbatch it has a typo
-#this script needs proofreading to remove my extra comments, spellchecking and ensuring comment format is consistent
-#script also needs to run completely to ensure it functions correctly
+ #this script needs proofreading to remove my extra comments, spellchecking and ensuring comment format is consistent
+ #script also needs to run completely to ensure it functions correctly
 #final script  could have a generic email-  this will avoid me being emailed when they test it lol
-#can someone else test the email part as it doesn't work for me
-#should we make it all snake case
-#remove these comments for final commit
+ #can someone else test the email part as it doesn't work for me
+ #remove these comments for final commit
 
 # Required Output Directories:
 # - /DSB-26-Group2/
@@ -47,6 +46,8 @@ txtout="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/txt_output"
 
 # Create directories if they do not already exist
 # -p specifies the absolute file path using the variables created to ensure directories created in correct location D
+mkdir -p "/gpfs/home/dus21jwu/scratch/DSB-26-Group2/output_messages"
+mkdir -p "/gpfs/home/dus21jwu/scratch/DSB-26-Group2/error_messages"
 mkdir -p "$rawdata"
 mkdir -p "$reference"
 mkdir -p "$mappedsam"

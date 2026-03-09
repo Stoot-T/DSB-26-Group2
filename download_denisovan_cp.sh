@@ -1,7 +1,6 @@
-
 #!/bin/bash
-#SBATCH --job-name=download_denisovan
-#SBATCH --time=05:00:00
+#SBATCH --job-name=denisovan_readalign
+#SBATCH --time=36:00:00
 #SBATCH --mem=15G
 #SBATCH --cpus-per-task=4
 #SBATCH -o /gpfs/home/dus21jwu/scratch/DSB-26-Group2/Output_Messages/download_%j.out
