@@ -64,11 +64,11 @@ for id in ERR145618 ERR145620 ERR145622 ERR145624; do
 #convert SAM to BAM
     samtools view -b "${mappedsam}/${id}.sam" > "${mappedbam}/${id}.bam"
 #sort BAM
-    samtools sort -@ 4 -o "${mappedbam}/${id}.sorted.bam" "${sortedfiles}/${id}.bam"
+    samtools sort -@ 4 -o "${sortedfiles}/${id}.sorted.bam" "${mappedbam}/${id}.bam"
 #index BAM
     samtools index "${sortedfiles}/${id}.sorted.bam"
 #extract mapping statistics
     samtools flagstat "${sortedfiles}/${id}.sorted.bam"
 #coverage and sex karyotype determination
-    samtools coverage "${mappedbam}/${id}.sorted.bam" | sort -k7r | column -t > "${txtout}/${id}_coverage.txt"
+    samtools coverage "${sortedfiles}/${id}.sorted.bam" | sort -k7r | column -t > "${txtout}/${id}_coverage.txt"
 done
