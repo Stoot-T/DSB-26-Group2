@@ -28,6 +28,8 @@
 # - /Error_Messages
 # - /mapped_sam
 # - /mapped_bam
+# - /sorted_files
+# - /txt_output
 
 # Load required modules
 module load  bwa/0.7.19
@@ -51,13 +53,17 @@ mkdir -p "$mappedsam"
 mkdir -p "$mappedbam"
 mkdir -p "$sortedfiles"
 mkdir -p "$txtout"
+echo "Created/checked output directories"
 
-# Download FASTQ files into rawdata directory
+# Download zip files into rawdata directory
+echo "Starting FASTQ downloads..."
 for id in ERR145618 ERR145620 ERR145622 ERR145624; do
     wget -nc -P "$rawdata" ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR145/${id}/${id}_1.fastq.gz
     wget -nc -P "$rawdata" ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR145/${id}/${id}_2.fastq.gz
 done
+echo "FASTQ download step complete"
 
+echo "Starting alignment and BAM processing..."
 for id in ERR145618 ERR145620 ERR145622 ERR145624; do
 #align reads to reference
     bwa mem "/gpfs/data/BIO-DSB/Session4/ref/human-ref-GRCh38.fasta" "${rawdata}/${id}_1.fastq.gz" "${rawdata}/${id}_2.fastq.gz" > "${mappedsam}/${id}.sam"
@@ -72,3 +78,5 @@ for id in ERR145618 ERR145620 ERR145622 ERR145624; do
 #coverage and sex karyotype determination
     samtools coverage "${sortedfiles}/${id}.sorted.bam" | sort -k7r | column -t > "${txtout}/${id}_coverage.txt"
 done
+
+echo "All samples processed successfully. Outputs are in: $OUTPUT_DIR"
