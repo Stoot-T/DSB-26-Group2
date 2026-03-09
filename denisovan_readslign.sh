@@ -4,8 +4,8 @@
 #SBATCH --time=36:00:00                        #Max. runtime (36 hours)
 #SBATCH --mem=36G                              #Total memory requested
 #SBATCH --cpus-per-task=8                      # Number of CPU cores
-#SBATCH -o /gpfs/home/dus21jwu/scratch/DSB-26-Group2/Output_Messages/download_%j.out      #-o flag captures everything printed to standard .out file %j is a slurm variable that replaces job name with id  helpful to troubleshooting code
-#SBATCH -e /gpfs/home/dus21jwu/scratch/DSB-26-Group2/Error_Messages/download_%j.err       #-e  captures error messages and saves them to a .err file
+#SBATCH -o /gpfs/home/dus21jwu/scratch/DSB-26-Group2/output_messages/download_%j.out      #-o flag captures everything printed to standard .out file %j is a slurm variable that replaces job name with id  helpful to troubleshooting code
+#SBATCH -e /gpfs/home/dus21jwu/scratch/DSB-26-Group2/error_messages/download_%j.err       #-e  captures error messages and saves them to a .err file
 #SBATCH --mail-type=ALL                        #Receive emails when the job starts, ends or fails 
 #SBATCH --mail-user=dus21jwu@uea.ac.uk
 
@@ -20,8 +20,8 @@
 
 # Required Output Directories:
 # - /DSB-26-Group2/
-# - /Output_Messages
-# - /Error_Messages
+# - /output_messages
+# - /error_messages
 # - /mapped_sam
 # - /mapped_bam
 # - /sorted_files
