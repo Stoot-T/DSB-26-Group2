@@ -1,4 +1,9 @@
 #!/bin/bash
+
+#SBATCH -p bio-ds
+#SBATCH --qos=bio-ds
+#simple code is better- are these necessary?
+
 #SBATCH --job-name=read_mapping_denisovan
 #SBATCH --time=36:00:00
 #SBATCH --mem=36G
@@ -34,12 +39,18 @@ set -euo pipefail
 # Defining variables contining paths to file locations
 rawdata="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/raw"
 reference="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/reference"
-mappedsam="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/mapped_sam_and_bam"
+mappedsam="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/mapped_sam"
+mappedbam="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/mapped_bam"
+sortedfiles="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/sorted_files"
+txtout="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/txt_output"
 
 # Create directories if they don't exist
 mkdir -p "$rawdata"
 mkdir -p "$reference"
 mkdir -p "$mappedsam"
+mkdir -p "$mappedbam"
+mkdir -p "$sortedfiles"
+mkdir -p "$txtout"
 
 # Download FASTQ files into rawdata directory
 for id in ERR145618 ERR145620 ERR145622 ERR145624; do
@@ -51,13 +62,13 @@ for id in ERR145618 ERR145620 ERR145622 ERR145624; do
 #align reads to reference
     bwa mem "/gpfs/data/BIO-DSB/Session4/ref/human-ref-GRCh38.fasta" "${rawdata}/${id}_1.fastq.gz" "${rawdata}/${id}_2.fastq.gz" > "${mappedsam}/${id}.sam"
 #convert SAM to BAM
-    samtools view -b "${mappedsam}/${id}.sam" > "${mappedsam}/${id}.bam"
+    samtools view -b "${mappedsam}/${id}.sam" > "${mappedbam}/${id}.bam"
 #sort BAM
-    samtools sort -@ 4 -o "${mappedsam}/${id}.sorted.bam" "${mappedsam}/${id}.bam"
+    samtools sort -@ 4 -o "${mappedbam}/${id}.sorted.bam" "${sortedfiles}/${id}.bam"
 #index BAM
-    samtools index "${mappedsam}/${id}.sorted.bam"
+    samtools index "${sortedfiles}/${id}.sorted.bam"
 #extract mapping statistics
-    samtools flagstat "${mappedsam}/${id}.sorted.bam"
+    samtools flagstat "${sortedfiles}/${id}.sorted.bam"
 #coverage and sex karyotype determination
-    samtools coverage "${mappedsam}/${id}.sorted.bam" | sort -k7r | column -t > "${mappedsam}/${id}_coverage.txt"
+    samtools coverage "${mappedbam}/${id}.sorted.bam" | sort -k7r | column -t > "${txtout}/${id}_coverage.txt"
 done
