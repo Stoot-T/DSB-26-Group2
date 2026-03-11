@@ -1,16 +1,15 @@
 #!/bin/bash
-
 #SBATCH -p bio-ds
 #SBATCH --qos=bio-ds
 
-#SBATCH --job-name=Read_mapping_Denisovan
-#SBATCH --time=05:00:00
+#SBATCH --job-name=denisovan_readalign
+#SBATCH --time=36:00:00
 #SBATCH --mem=15G
 #SBATCH --cpus-per-task=4
-#SBATCH -o /gpfs/home/kfq26hru/scratch/DSB-26-Group2/Output_Messages/%x-%j.out
-#SBATCH -e /gpfs/home/kfq26hru/scratch/DSB-26-Group2/Error_Messages/%x-%j.err
+#SBATCH -o /gpfs/home/dus21jwu/scratch/DSB-26-Group2/Output_Messages/download_%j.out
+#SBATCH -e /gpfs/home/dus21jwu/scratch/DSB-26-Group2/Error_Messages/download_%j.err
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=kfq26hru@uea.ac.uk
+#SBATCH --mail-user=dus21jwu@uea.ac.uk
 
 #this sbatch file needs renaming- we should carefully consdier all of our naming conventions
 #job names  and other details can definitely be improved
