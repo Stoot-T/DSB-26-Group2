@@ -26,7 +26,7 @@ This repository documents the read-mapping workflow used to identify the biologi
 
 ## Background
 
-This project uses paired-end Illumina short-read data from a Denisovan individual. The DNA was recovered from a finger bone found in Denisova Cave in southern Siberia, and the sequencing data were downloaded from the European Nucleotide Archive (ENA) under project PRJEB3092.
+This project uses paired-end Illumina short-read data from a Denisovan individual. The DNA was recovered from a finger bone found in Denisova Cave in southern Siberia, and the sequencing data was downloaded from the European Nucleotide Archive (ENA) under project PRJEB3092.
 
 The dataset is reported to be the first high-coverage (30x) Denisovan genome sequence, but the biological sex of the sampled individual is not provided in the metadata. To address this, the project uses a reference-based mapping approach to determine the sex chromosome karyotype of the sample.
 
@@ -34,7 +34,7 @@ Although 26 samples are available on the ENA website, this project focuses on 4 
 
 The workflow is designed to run on the UEA HPC system using a Slurm batch script, because the analysis is too computationally intensive to run reliably in an interactive session.
 
-The results are written to tab-delimited coverage files and is visualised as graph in RStudio.
+The results are written to tab-delimited coverage files and is visualised graphically in RStudio.
 
 ---
 
@@ -73,12 +73,12 @@ The whole process takes place on the UEA HPC server. Log into the HPC as follows
 ssh <abc12xyz>@hali.uea.ac.uk
 # Enter your UEA password when prompted
 # Note: if working off-campus on a personal laptop, connect to GlobalProtect VPN first
+```
+*Replace `abc12xyz` with your UEA username.*
 
 # Start an interactive job with bioinformatics resources available. 
 # Do NOT run computationally intensive commands on the login node
 interactive-bio-ds
-```
-*Replace `abc12xyz` with your UEA username.*
 
 ### Step 2. Create required directories on HPC
 Create the required directories in your HPC scratch workspace before running the job script:
