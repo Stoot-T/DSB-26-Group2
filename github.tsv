@@ -1,0 +1,24 @@
+Committing to GitHub
+
+#GitClone
+git clone https://github.com/Stoot-T/DSB-26-Group2.git
+#enter username and password
+#cd into new repo 
+cd DSB-26-Group2
+
+# Check what's changed
+git status
+
+# Stage specific file(s)
+git add filename
+
+# Stage all changed files
+git add .
+
+# Commit with a message
+git commit -m "Your commit message"
+
+# Push to GitHub
+git push origin main   # or 'master' depending on your branch
+
+#for soem reason if I use my github username when asked it doesnt work but using my token password as both username and password does
