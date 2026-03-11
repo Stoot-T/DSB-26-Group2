@@ -66,9 +66,9 @@ done
 echo "FASTQ download step complete"
 
 # Download the human reference genome (GRCh38) from Ensembl
-echo "Downloading human reference genome..."
 # -nc prevents redownloading existing files (no clobber)
 # -P tells the script to download files in the reference directory
+echo "Downloading human reference genome..."
 wget -nc -P "$reference" https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
 
 # Decompress the reference genome
