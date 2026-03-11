@@ -11,12 +11,7 @@
 
 
 
- #this script needs proofreading to remove my extra comments, spellchecking and ensuring comment format is consistent
- #script also needs to run completely to ensure it functions correctly
- #can someone else test the email part as it doesn't work for me
- #remove these comments for final commit
-
-#Load required modules for sequence alignment and analysis of sex chromosome karyotype
+ #Load required modules for sequence alignment and analysis of sex chromosome karyotype
 module load  bwa/0.7.19
 module load  samtools/1.21
 
