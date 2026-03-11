@@ -1,0 +1,66 @@
+#!/bin/bash
+#SBATCH --job-name=download_denisovan        # Name of the SLURM job
+#SBATCH --time=05:00:00                      # Max runtime (5 hours)
+#SBATCH --mem=15G                            # Total memory requested
+#SBATCH --cpus-per-task=4                    # Number of CPU cores
+#SBATCH -o /gpfs/home/dus21jwu/scratch/DSB-26-Group2/Output_Messages/download_%j.out   # STDOUT log
+#SBATCH -e /gpfs/home/dus21jwu/scratch/DSB-26-Group2/Error_Messages/download_%j.err    # STDERR log
+#SBATCH --mail-type=ALL                      # Email on start, end, fail
+#SBATCH --mail-user=dus21jwu@uea.ac.uk       # Email address for notifications
+
+# Notes for future cleanup:
+# - Job names and directory structure could be standardised.
+# - Email could be made generic for group testing.
+# - Remove comments before final commit.
+
+# Load required modules for alignment and BAM processing
+module load bwa/0.7.19
+module load samtools/1.21
+
+# Exit immediately on error, undefined variable, or failed pipe
+set -euo pipefail
+
+# Define directory paths for raw data, reference, and output BAM/SAM files
+rawdata="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/raw"
+reference="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/data/reference"
+mappedsam="/gpfs/home/dus21jwu/scratch/DSB-26-Group2/mapped_sam_and_bam"
+
+# Create directories if they do not already exist
+mkdir -p "$rawdata"
+mkdir -p "$reference"
+mkdir -p "$mappedsam"
+
+# Download FASTQ files for each sample ID
+# -nc prevents re-downloading existing files
+for id in ERR145618 ERR145620 ERR145622 ERR145624; do
+    wget -nc -P "$rawdata" ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR145/${id}/${id}_1.fastq.gz
+    wget -nc -P "$rawdata" ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR145/${id}/${id}_2.fastq.gz
+done
+
+# Process each downloaded sample
+for id in ERR145618 ERR145620 ERR145622 ERR145624; do
+
+    # Align paired-end reads to the human reference genome using BWA-MEM
+    bwa mem "/gpfs/data/BIO-DSB/Session4/ref/human-ref-GRCh38.fasta" \
+        "${rawdata}/${id}_1.fastq.gz" "${rawdata}/${id}_2.fastq.gz" \
+        > "${mappedsam}/${id}.sam"
+
+    # Convert SAM to BAM (binary, compressed)
+    samtools view -b "${mappedsam}/${id}.sam" > "${mappedsam}/${id}.bam"
+
+    # Sort BAM file by genomic coordinates using 4 threads
+    samtools sort -@ 4 -o "${mappedsam}/${id}.sorted.bam" "${mappedsam}/${id}.bam"
+
+    # Index sorted BAM for fast random access
+    samtools index "${mappedsam}/${id}.sorted.bam"
+
+    # Generate alignment statistics (mapped, unmapped, duplicates, etc.)
+    samtools flagstat "${mappedsam}/${id}.sorted.bam"
+
+    # Compute per‑contig coverage, sort by coverage column (7th), and format output
+    samtools coverage "${mappedsam}/${id}.sorted.bam" \
+        | sort -k7r \
+        | column -t \
+        > "${mappedsam}/${id}_coverage.txt"
+
+
