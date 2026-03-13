@@ -154,11 +154,15 @@ Based on the `samtools coverage` output, compare chromosome X and Y mean depth a
 
 
 ### Step 7. Optional - Plotting the output in R programming language
-Script:
+**Script**:
 
-Data: Output from step 5.
+**Data**: Output from step 5 or `*_coverage.txt`
 
-Output: Figure of the distribution of coverage per sex chromosome karyotype.
+**Purpose**:
+
+**Execution**:
+
+**Output**: Figure of the distribution of coverage per sex chromosome karyotype.
 
 ---
 
