@@ -40,6 +40,7 @@ txtout="/gpfs/home/USER/scratch/DSB-26-Group2/txt_output"
 
 # Create directories if they do not already exist
 # -p specifies the absolute file path using the variables created to ensure directories created in correct location
+#absolute filepaths specified here for error and output files as a failsafe so job won't fail if not already present 
 mkdir -p "/gpfs/home/USER/scratch/DSB-26-Group2/output_messages"
 mkdir -p "/gpfs/home/USER/scratch/DSB-26-Group2/error_messages"
 mkdir -p "$rawdata"
