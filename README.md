@@ -2,7 +2,9 @@
 
 This repository documents the read-mapping workflow used to identify the biological sex of a Denisovan individual. The sequencing data for this project were downloaded from the European Nucleotide Archive (ENA) under project PRJEB3092.
 
-*`Source: https://www.ebi.ac.uk/ena/browser/view/ERP001519`*
+*`Source
+Human Reference: Homo sapiens GRCh38
+Denisovan Sequening Reads: https://www.ebi.ac.uk/ena/browser/view/ERP001519`*
 
 ---
 
