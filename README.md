@@ -75,12 +75,14 @@ The whole process takes place on the UEA HPC server. Log into the HPC as follows
 ssh <abc12xyz>@hali.uea.ac.uk
 # Enter your UEA password when prompted
 # Note: if working off-campus on a personal laptop, connect to GlobalProtect VPN first
+
+#Start an interactive job with bioinformatics resources available. 
+#Do NOT run computationally intensive commands on the login node
+interactive-bio-ds
 ```
 *Replace `abc12xyz` with your UEA username.*
 
-# Start an interactive job with bioinformatics resources available. 
-# Do NOT run computationally intensive commands on the login node
-interactive-bio-ds
+
 
 ### Step 2. Create required directories on HPC
 Create the required directories in your HPC scratch workspace before running the job script:
@@ -155,22 +157,20 @@ Based on the `samtools coverage` output, compare chromosome X and Y mean depth a
 	- If chromosome X coverage is approximately half of autosomal coverage and chromosome Y has clear non-zero coverage, the sample is likely **XY** (male).
 
 
-### Step 7. Optional - Plotting the output in R programming language
-Used Rstudio version 2026.1.0.392
-The following packages were used:
-ggplot2 4.0.2
-dplyr 1.2.0
-readr 2.2.0
+### Step 7. Plotting the output in R programming language
+**Tools**: **Rstudio**/ version 2026.1.0.392
 
-**Script**: Can be found in RStudio script file above
+**Packages**: `ggplot2 4.0.2`, `dplyr 1.2.0`, `readr 2.2.0`
 
-**Data**: Output from step 5 or `*_coverage.txt`
+**Script**: `RStudio_Code.txt`
 
-**Purpose**: To visualise the data
+**Data**: Outputs from step 5 or `*_coverage.txt` files in `txt_output` folder.
 
-**Execution**: Used a ggplot with the following; Bar plot to display the coverage, line and point plot to display mean depth
+**Purpose**: To visualise the read-mapping coverage across chromosomes for each Denisovan sample.
 
-**Output**: Figure of the distribution of coverage per sex chromosome karyotype.
+**Execution**: Using **_ggplot_** in R with **_bar plot_** to display the coverage, line and **_point plot_** to display mean depth.
+
+**Output**: Figures summarising sequencing depth across all chromosomes for each ERR sample. The bars represent coverage per chromosome and the overlaid line represents mean depth, allowing quick comparison of X/Y coverage versus autosomes to infer the sex karyotype XX vs XY.
 
 ---
 
