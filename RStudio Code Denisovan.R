@@ -1,40 +1,47 @@
+#Install packages
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("readr")
+library(ggplot2)
+library(dplyr)
+library(readr)
+
 #Import the 4 data sets from GitHub separately
 
 #Sequence 1
-
 #Initiate plot with data from the sequence ERR145618
 ggplot(Seq1)
 ggplot(Seq1, aes(x= rname,
                  y= coverage,
                  colour = Coverage)) +
-
-    
-#Create bar chart on the primary y-axis
-#Stat = Identity uses the values in the coverage column
+  
+  
+  #Create bar chart on the primary y-axis
+  #Stat = Identity uses the values in the coverage column
   geom_bar(stat = "identity", 
            colour = "steelblue",
            fill = "steelblue") +
   
-#Layer mean depth using a line and point chart
-#Multiply mean depth by 100 so it is visible against larger coverage values
+  #Layer mean depth using a line and point chart
+  #Multiply mean depth by 100 so it is visible against larger coverage values
   geom_line(aes(y = meandepth * 100, group = 1), colour = "forestgreen", size = 1) +
   geom_point(aes(y = meandepth * 100), colour = "forestgreen", size = 1) +
   
-#create secondary y-axis
-#The secondary axis transformation (~ . / 100) reverses the scaling above
+  #create secondary y-axis
+  #The secondary axis transformation (~ . / 100) reverses the scaling above
   scale_y_continuous(
     name = "Coverage Value", 
     sec.axis = sec_axis(~ . / 100, name = "Mean Depth")) +
   
   
-#Add title and axis titles
+  #Add title and axis titles
   labs(
     title = "ERR145618",
     x = "Chromosome",      
     y = "Coverage Value"
   ) +
   
-#styling and aesthetics
+  #styling and aesthetics
   theme_bw() +
   theme(
     panel.grid.major = element_blank(),
@@ -51,6 +58,8 @@ ggplot(Seq1, aes(x= rname,
 chr_order <- c(paste0(1:22), "X", "Y" )
 
 Seq1$rname <- factor(Seq1$rname, levels = chr_order)
+
+#Rerun code to create graph with correct order
 
 #Repeate for sequences 2-4 changing the dataset where necessary 
 #Sequence 2
@@ -72,7 +81,7 @@ ggplot(Seq2, aes(x= rname,
     name = "Coverage Value", 
     sec.axis = sec_axis(~ . / 100, name = "Mean Depth")) +
   
-
+  
   
   labs(
     title = "ERR145620",
@@ -115,7 +124,7 @@ ggplot(Seq3, aes(x= rname,
     name = "Coverage Value", 
     sec.axis = sec_axis(~ . / 100, name = "Mean Depth")) +
   
-
+  
   
   labs(
     title = "ERR145622",
@@ -157,7 +166,7 @@ ggplot(Seq4, aes(x= rname,
     name = "Coverage Value", 
     sec.axis = sec_axis(~ . / 100, name = "Mean Depth")) +
   
-
+  
   
   labs(
     title = "ERR145624",
