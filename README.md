@@ -65,7 +65,7 @@ cd <where_you_want_it>
 git clone git@github.com:<your-username>/DSB-26-Group2.git
 cd DSB-26-Group2
 ```
-*Replace <your-username> with your GitHub username.*
+*Replace `<your-username>` with your GitHub username.*
 
 ### Step 1.  Log into the UEA HPC
 The whole process takes place on the UEA HPC server. Log into the HPC as follows:
