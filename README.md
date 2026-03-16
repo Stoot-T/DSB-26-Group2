@@ -156,6 +156,12 @@ Based on the `samtools coverage` output, compare chromosome X and Y mean depth a
 
 
 ### Step 7. Optional - Plotting the output in R programming language
+Used Rstudio version 2026.1.0.392
+The following packages were used:
+ggplot2 4.0.2
+dplyr 1.2.0
+readr 2.2.0
+
 **Script**: Can be found in RStudio script file above
 
 **Data**: Output from step 5 or `*_coverage.txt`
