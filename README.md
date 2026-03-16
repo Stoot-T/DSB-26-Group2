@@ -11,7 +11,7 @@ Denisovan Sequening Reads: https://www.ebi.ac.uk/ena/browser/view/ERP001519`*
 
 ## Objectives
 
-- Build a reproducible SLURM-based pipeline to process Denisovan paired-end sequencing reads on the UEA HPC system.
+- Write a reproducible SLURM-based bash script to process Denisovan paired-end sequencing reads on the UEA HPC system.
 
 - Download and manage raw FASTQ files and the reference genome from trusted public repositories (ENA and Ensembl).
 
