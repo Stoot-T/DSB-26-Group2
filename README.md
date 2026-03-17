@@ -86,7 +86,7 @@ interactive-bio-ds
 
 ### Step 2. Create required directories on HPC
 Create the required directories in your HPC scratch workspace before running the job script:
-
+Optional: only required if not establishing GitHub repository onto the HPC
 ```bash
 # Move into your HPC scratch workspace
 cd ~/scratch
@@ -111,6 +111,10 @@ scp denisovan_readalignment.sh abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2
 ```
 *Run this on your local terminal, not on hali*
 
+#Alternatively, on the HPC:
+#If the GitHub repository has already been established then the denisovan_readalignment.sh file should already be accessible to run on the HPC. To esnure the sbatch file is present, cd into the correct directory and run git pull
+git pull origin main 
+cd /DSB-26-Group2
 
 ### Step 4. Adjust the script on the HPC workspace
 Update fields in the script (for example: username and job name).
@@ -158,18 +162,52 @@ Based on the `samtools coverage` output, compare chromosome X and Y mean depth a
 
 
 ### Step 7. Plotting the output in R programming language
-**Tools**: **Rstudio**/ version 2026.1.0.392
+# To interpret the results, we use R to compare the sequencing depth of sex chromosomes (X and Y) against the autosomes (1-22).
 
-**Packages**: `ggplot2 4.0.2`, `dplyr 1.2.0`, `readr 2.2.0`
+Tools: RStudio (v2026.1+)
+
+**Packages**: ggplot2 4.0.2, dplyr 1.2.0, readr 2.2.0
+
+**Input**: *_coverage.txt files generated in Step 5.
 
 **Script**: `RStudio_Code.txt`
 
 **Data**: Outputs from step 5 or `*_coverage.txt` files in `txt_output` folder.
 
-**Purpose**: To visualise the read-mapping coverage across chromosomes for each Denisovan sample.
+1. Transfer results to your local machine
+Since RStudio is typically run on your personal computer, you first need to download the results from the HPC. Run this command on your local terminal:
 
-**Execution**: Using **_ggplot_** in R with **_bar plot_** to display the coverage, line and **_point plot_** to display mean depth.
+Bash
+# Create a local folder for the results
+mkdir ~/Desktop/denisovan_results
 
+# Copy the coverage files from HPC to your computer
+# Replace abc12xyz with your UEA username
+scp abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2/txt_output/*_coverage.txt ~/Desktop/denisovan_results/
+2. Run the R Script
+Open RStudio and follow these steps:
+
+**Set Working Directory:** Go to Session > Set Working Directory > Choose Directory and select your denisovan_results folder.
+
+**Load the Script:** Open RStudio_Code.R (also available in the repo).
+
+**Execute:** Highlight the code and press Ctrl+Enter (Windows) or Cmd+Enter (Mac).
+
+Alternatively, to access the .R script using the GitHub repo follow these instructions:
+
+Open RStudio.
+
+Go to File > New Project...
+
+Select Version Control > Git.
+
+In Repository URL, paste your fork's link: https://github.com/<your-username>/DSB-26-Group2.git
+
+Click Create Project.
+
+RStudio will now download the entire repo, including RStudio_Code.R, to your computer.
+
+Open the file from the Files pane (bottom right) and run your analysis.
 **Output**: Figures summarising sequencing depth across all chromosomes for each ERR sample. The bars represent coverage per chromosome and the overlaid line represents mean depth, allowing quick comparison of X/Y coverage versus autosomes to infer the sex karyotype XX vs XY.
 
 ---
