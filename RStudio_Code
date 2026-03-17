@@ -49,7 +49,7 @@ ggplot(Seq1, aes(x= rname,
   # whereas 'meandepth' might be small (e.g., 0.5 to 30). 
   # so it is visible on the same scale as the bar chart.
   # group = 1 is required to connect points with a line across a categorical X-axis.
-# group = 1 is required to connect points with a line across a categorical X-axis.
+ # group = 1 is required to connect points with a line across a categorical X-axis.
   geom_line(aes(y = meandepth * 100, group = 1), colour = "forestgreen", size = 1) +
   geom_point(aes(y = meandepth * 100), colour = "forestgreen", size = 1) +
 
