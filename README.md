@@ -183,7 +183,7 @@ Tools: RStudio (v2026.1+)
 1. Transfer results to your local machine
 Since RStudio is typically run on your personal computer, you first need to download the results from the HPC. Run this command on your local terminal:
 
-Bash
+```Bash
 # Create a local folder for the results
 mkdir ~/Desktop/denisovan_results
 
@@ -192,6 +192,7 @@ mkdir ~/Desktop/denisovan_results
 scp abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2/txt_output/*_coverage.txt ~/Desktop/denisovan_results/
 2. Run the R Script
 Open RStudio and follow these steps:
+'''
 
 **Set Working Directory:** Go to Session > Set Working Directory > Choose Directory and select your denisovan_results folder.
 
