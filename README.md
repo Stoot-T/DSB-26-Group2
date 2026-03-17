@@ -190,9 +190,10 @@ mkdir ~/Desktop/denisovan_results
 # Copy the coverage files from HPC to your computer
 # Replace abc12xyz with your UEA username
 scp abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2/txt_output/*_coverage.txt ~/Desktop/denisovan_results/
+```
+
 2. Run the R Script
 Open RStudio and follow these steps:
-'''
 
 **Set Working Directory:** Go to Session > Set Working Directory > Choose Directory and select your denisovan_results folder.
 
@@ -215,6 +216,7 @@ Click Create Project.
 RStudio will now download the entire repo, including RStudio_Code.R, to your computer.
 
 Open the file from the Files pane (bottom right) and run your analysis.
+
 **Output**: Figures summarising sequencing depth across all chromosomes for each ERR sample. The bars represent coverage per chromosome and the overlaid line represents mean depth, allowing quick comparison of X/Y coverage versus autosomes to infer the sex karyotype XX vs XY.
 
 ---
