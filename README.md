@@ -207,6 +207,8 @@ Click Create Project.
 RStudio will now download the entire repo, including RStudio_Code.R, to your computer.
 
 Open the file from the Files pane (bottom right) and run your analysis.
+
+
 2. Run the R Script
 Open RStudio and follow these steps:
 
