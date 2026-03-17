@@ -116,8 +116,11 @@ scp denisovan_readalignment.sh abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2
 If the GitHub repository has already been established then the denisovan_readalignment.sh file should already be accessible to run on the HPC. To esnure the sbatch file is present, cd into the correct directory and run git pull
 
 ```bash
+# Move into your local folder containing denisovan_readalignment.sh
 cd /DSB-26-Group2
+#git pull to pull any changes from the GitHub branch into the HPC directory 
 git pull origin main
+```
 
 ### Step 4. Adjust the script on the HPC workspace
 Update fields in the script (for example: username and job name).
