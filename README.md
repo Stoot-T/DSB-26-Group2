@@ -170,7 +170,7 @@ Based on the `samtools coverage` output, compare chromosome X and Y mean depth a
 ### Step 7. Plotting the output in R programming language
 # To interpret the results, we use R to compare the sequencing depth of sex chromosomes (X and Y) against the autosomes (1-22).
 
-Tools: RStudio (v2026.1+)
+**Tools**: RStudio (v2026.1+)
 
 **Packages**: ggplot2 4.0.2, dplyr 1.2.0, readr 2.2.0
 
@@ -192,15 +192,6 @@ mkdir ~/Desktop/denisovan_results
 scp abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2/txt_output/*_coverage.txt ~/Desktop/denisovan_results/
 ```
 
-2. Run the R Script
-Open RStudio and follow these steps:
-
-**Set Working Directory:** Go to Session > Set Working Directory > Choose Directory and select your denisovan_results folder.
-
-**Load the Script:** Open RStudio_Code.R (also available in the repo).
-
-**Execute:** Highlight the code and press Ctrl+Enter (Windows) or Cmd+Enter (Mac).
-
 Alternatively, to access the .R script using the GitHub repo follow these instructions:
 
 Open RStudio.
@@ -216,8 +207,25 @@ Click Create Project.
 RStudio will now download the entire repo, including RStudio_Code.R, to your computer.
 
 Open the file from the Files pane (bottom right) and run your analysis.
+2. Run the R Script
+Open RStudio and follow these steps:
+
+**Set Working Directory:** Go to Session > Set Working Directory > Choose Directory and select your denisovan_results folder.
+
+**Load the Script:** Open RStudio_Code.R (also available in the repo).
+
+**Execute:** Highlight the code and press Ctrl+Enter (Windows) or Cmd+Enter (Mac).
 
 **Output**: Figures summarising sequencing depth across all chromosomes for each ERR sample. The bars represent coverage per chromosome and the overlaid line represents mean depth, allowing quick comparison of X/Y coverage versus autosomes to infer the sex karyotype XX vs XY.
+
+--- 
+**Git Troubleshooting:** 
+To verify GitHub is intalled, run command:
+```Bash
+git status
+
+```
+Installation in Git within .R is required for accessing the GitHub within .R Studio.
 
 ---
 
