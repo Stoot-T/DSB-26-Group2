@@ -222,6 +222,8 @@ Open RStudio and follow these steps:
 
 --- 
 **Git Troubleshooting:** 
+Commands for GitHub are run in the terminal of .RStudio
+
 To verify GitHub is intalled, run command:
 ```Bash
 git status
