@@ -1,47 +1,76 @@
-#Install packages
+# ==============================================================================
+# DSB-26-Group2: Sex Identification via Read-Mapping Coverage
+# Purpose: Visualize sequencing depth across human chromosomes to infer 
+#          biological sex (XX vs XY).
+# ==============================================================================
+
+# --- 1. Environment Setup ---
+# Install necessary libraries if not already present
+# ggplot2: For high-quality data visualization
+# dplyr: For data manipulation (filtering, ordering)
+# readr: For fast reading of tab-delimited files
 install.packages("ggplot2")
 install.packages("dplyr")
 install.packages("readr")
+
+#Library packages
 library(ggplot2)
 library(dplyr)
 library(readr)
 
-#Import the 4 data sets from GitHub separately
+# --- 2. Data Import ---
+# Import the 4 data sets from GitHub separately
+# samtools coverage produces a tab-delimited file with specific headers:
+# #rname: Chromosome name
+# coverage: % of the chromosome covered by at least one read (0-100)
+# meandepth: The average number of times each base was sequenced (e.g., 30x)
 
-#Sequence 1
-#Initiate plot with data from the sequence ERR145618
+# --- 3. Visualization Logic ---
+# We are creating a Dual-Axis Plot:
+# Primary Y-axis: 'coverage' (Percentage of chromosome covered).
+# Secondary Y-axis: 'meandepth' (Actual sequencing depth).
+
+# Function-style approach for Sequence 1 (ERR145618)
 ggplot(Seq1)
 ggplot(Seq1, aes(x= rname,
                  y= coverage,
                  colour = Coverage)) +
   
-  
+  # GEOM_BAR: Displays % coverage. 
+  # stat = "identity" tells ggplot to use the literal value in the 'coverage' column.
   #Create bar chart on the primary y-axis
   #Stat = Identity uses the values in the coverage column
   geom_bar(stat = "identity", 
            colour = "steelblue",
            fill = "steelblue") +
   
-  #Layer mean depth using a line and point chart
-  #Multiply mean depth by 100 so it is visible against larger coverage values
+ GEOM_LINE & POINT: Displays Mean Depth.
+  # We multiply meandepth by 100 because 'coverage' is usually 0-100, 
+  # whereas 'meandepth' might be small (e.g., 0.5 to 30). This "boosts" it
+  # so it is visible on the same scale as the bar chart.
+  # group = 1 is required to connect points with a line across a categorical X-axis.
+# group = 1 is required to connect points with a line across a categorical X-axis.
   geom_line(aes(y = meandepth * 100, group = 1), colour = "forestgreen", size = 1) +
   geom_point(aes(y = meandepth * 100), colour = "forestgreen", size = 1) +
-  
-  #create secondary y-axis
-  #The secondary axis transformation (~ . / 100) reverses the scaling above
+
+  # SCALE_Y_CONTINUOUS: Manages the two axes.
+  # sec_axis (~ . / 100) tells R to draw a second axis on the right, 
+  # but label it by dividing the primary values by 100 to show the REAL mean depth.
   scale_y_continuous(
     name = "Coverage Value", 
     sec.axis = sec_axis(~ . / 100, name = "Mean Depth")) +
   
   
-  #Add title and axis titles
+  # LABS: add title and axis titles
   labs(
     title = "ERR145618",
     x = "Chromosome",      
     y = "Coverage Value"
   ) +
   
-  #styling and aesthetics
+# THEME: Styling and aesthetics.
+  # theme_bw() removes the gray background.
+  # hjust = 0.5 centers the title.
   theme_bw() +
   theme(
     panel.grid.major = element_blank(),
@@ -61,7 +90,12 @@ Seq1$rname <- factor(Seq1$rname, levels = chr_order)
 
 #Rerun code to create graph with correct order
 
-#Repeate for sequences 2-4 changing the dataset where necessary 
+# --- 5. Interpreting the Flags & Output ---
+# Look at the 'X' and 'Y' positions on the chart:
+# 1. If 'X' coverage/depth is similar to autosomes (1-22) and 'Y' is zero: FEMALE.
+# 2. If 'X' depth is ~50% of autosomes and 'Y' has visible depth: MALE.
+
+#Repeat for sequences 2-4 changing the dataset where necessary 
 #Sequence 2
 
 ggplot(Seq2)
