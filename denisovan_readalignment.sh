@@ -11,12 +11,7 @@
 
 
 
- #this script needs proofreading to remove my extra comments, spellchecking and ensuring comment format is consistent
- #script also needs to run completely to ensure it functions correctly
- #can someone else test the email part as it doesn't work for me
- #remove these comments for final commit
-
-#Load required modules for sequence alignment and analysis of sex chromosome karyotype
+ #Load required modules for sequence alignment and analysis of sex chromosome karyotype
 module load  bwa/0.7.19
 module load  samtools/1.21
 
@@ -45,6 +40,7 @@ txtout="/gpfs/home/USER/scratch/DSB-26-Group2/txt_output"
 
 # Create directories if they do not already exist
 # -p specifies the absolute file path using the variables created to ensure directories created in correct location
+#absolute filepaths specified here for error and output files as a failsafe so job won't fail if not already present 
 mkdir -p "/gpfs/home/USER/scratch/DSB-26-Group2/output_messages"
 mkdir -p "/gpfs/home/USER/scratch/DSB-26-Group2/error_messages"
 mkdir -p "$rawdata"
@@ -66,9 +62,9 @@ done
 echo "FASTQ download step complete"
 
 # Download the human reference genome (GRCh38) from Ensembl
-echo "Downloading human reference genome..."
 # -nc prevents redownloading existing files (no clobber)
 # -P tells the script to download files in the reference directory
+echo "Downloading human reference genome..."
 wget -nc -P "$reference" https://ftp.ensembl.org/pub/release-113/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
 
 # Decompress the reference genome
