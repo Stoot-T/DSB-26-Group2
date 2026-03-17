@@ -8,7 +8,7 @@
 # Install necessary libraries if not already present
 # ggplot2: For high-quality data visualization
 # dplyr: For data manipulation (filtering, ordering)
-# readr: For fast reading of tab-delimited files
+# readr: For fast reading of files
 install.packages("ggplot2")
 install.packages("dplyr")
 install.packages("readr")
@@ -20,7 +20,7 @@ library(readr)
 
 # --- 2. Data Import ---
 # Import the 4 data sets from GitHub separately
-# samtools coverage produces a tab-delimited file with specific headers:
+# samtools coverage produces a file with specific headers:
 # #rname: Chromosome name
 # coverage: % of the chromosome covered by at least one read (0-100)
 # meandepth: The average number of times each base was sequenced (e.g., 30x)
@@ -46,7 +46,7 @@ ggplot(Seq1, aes(x= rname,
   
  GEOM_LINE & POINT: Displays Mean Depth.
   # We multiply meandepth by 100 because 'coverage' is usually 0-100, 
-  # whereas 'meandepth' might be small (e.g., 0.5 to 30). This "boosts" it
+  # whereas 'meandepth' might be small (e.g., 0.5 to 30). 
   # so it is visible on the same scale as the bar chart.
   # group = 1 is required to connect points with a line across a categorical X-axis.
 # group = 1 is required to connect points with a line across a categorical X-axis.
