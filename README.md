@@ -4,7 +4,7 @@ This repository documents the read-mapping workflow used to identify the biologi
 
 *`Source
 Human Reference: Homo sapiens GRCh38
-Denisovan Sequening Reads: https://www.ebi.ac.uk/ena/browser/view/ERP001519`*
+Denisovan Sequencing Reads: https://www.ebi.ac.uk/ena/browser/view/ERP001519`*
 
 ---
 
@@ -36,7 +36,7 @@ Although 26 samples are available on the ENA website, this project focuses on 4 
 
 The workflow is designed to run on the UEA HPC system using a Slurm batch script, because the analysis is too computationally intensive to run reliably in an interactive session.
 
-The results are written to tab-delimited coverage files and is visualised graphically in RStudio.
+The results are written to tab-delimited coverage files and are visualised graphically in RStudio.
 
 ---
 
@@ -113,7 +113,7 @@ scp denisovan_readalignment.sh abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2
 
 ### Alternatively, on the HPC:
 
-If the GitHub repository has already been established then the denisovan_readalignment.sh file should already be accessible to run on the HPC. To esnure the sbatch file is present, cd into the correct directory and run git pull
+If the GitHub repository has already been established then the denisovan_readalignment.sh file should already be accessible to run on the HPC. To ensure the sbatch file is present, move into the correct directory and run git pull:
 
 ```bash
 # Move into your local folder containing denisovan_readalignment.sh
@@ -224,12 +224,12 @@ Open RStudio and follow these steps:
 **Git Troubleshooting:** 
 Commands for GitHub are run in the terminal of .RStudio
 
-To verify GitHub is intalled, run command:
+To verify GitHub is installed, run command:
 ```Bash
 git status
 
 ```
-Installation in Git within .R is required for accessing the GitHub within .R Studio.
+`Git` must be installed and available in RStudio to access GitHub from within RStudio.
 
 ---
 
