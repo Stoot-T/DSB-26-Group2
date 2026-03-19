@@ -31,11 +31,13 @@ library(readr)
 # Secondary Y-axis: 'meandepth' (Actual sequencing depth).
 
 # Function-style approach for Sequence 1 (ERR145618)
+# ggsave saves graphs as .png file for later use if required
 ggplot(Seq1)
 ggplot(Seq1, aes(x= rname,
                  y= coverage,
                  colour = Coverage)) +
-  
+                ggsave("ERR145618_Plot.png", width = 10, height = 6, dpi = 300) +
+
   # GEOM_BAR: Displays % coverage. 
   # Create bar chart on the primary y-axis
   # Stat = Identity uses the values in the coverage column
@@ -138,7 +140,7 @@ ggplot(Seq2, aes(x= rname,
 
 chr_order <- c(paste0(1:22), "X", "Y" )
 
-Seq2$rname <- factor(Seq1$rname, levels = chr_order)
+Seq2$rname <- factor(Seq2$rname, levels = chr_order)
 
 #Sequence 3
 Seq3
@@ -181,7 +183,7 @@ ggplot(Seq3, aes(x= rname,
 
 chr_order <- c(paste0(1:22), "X", "Y" )
 
-Seq3$rname <- factor(Seq1$rname, levels = chr_order)
+Seq3$rname <- factor(Seq3$rname, levels = chr_order)
 
 #Sequence 4
 ggplot(Seq4)
@@ -223,4 +225,4 @@ ggplot(Seq4, aes(x= rname,
 
 chr_order <- c(paste0(1:22), "X", "Y" )
 
-Seq4$rname <- factor(Seq1$rname, levels = chr_order)
+Seq4$rname <- factor(Seq4$rname, levels = chr_order)
