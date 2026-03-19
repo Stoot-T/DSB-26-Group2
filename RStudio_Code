@@ -31,12 +31,10 @@ library(readr)
 # Secondary Y-axis: 'meandepth' (Actual sequencing depth).
 
 # Function-style approach for Sequence 1 (ERR145618)
-# ggsave saves graphs as .png file for later use if required
 ggplot(Seq1)
 ggplot(Seq1, aes(x= rname,
                  y= coverage,
                  colour = Coverage)) +
- #               ggsave("ERR145618_Plot.png", width = 10, height = 6, dpi = 300) +
 
   # GEOM_BAR: Displays % coverage. 
   # Create bar chart on the primary y-axis
