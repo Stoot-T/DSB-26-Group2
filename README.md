@@ -2,9 +2,9 @@
 
 This repository documents the read-mapping workflow used to identify the biological sex of a Denisovan individual. The sequencing data for this project were downloaded from the European Nucleotide Archive (ENA) under project PRJEB3092.
 
-*`Source
-Human Reference: Homo sapiens GRCh38
-Denisovan Sequencing Reads: https://www.ebi.ac.uk/ena/browser/view/ERP001519`*
+Source
+- Human Reference: Homo sapiens GRCh38
+- Denisovan Sequencing Reads: https://www.ebi.ac.uk/ena/browser/view/ERP001519
 
 ---
 
@@ -41,7 +41,7 @@ The results are written to tab-delimited coverage files and are visualised graph
 ---
 
 ## Workflow
-Step 0. [Repo Fork & Clone](#step-0-fork-this-dsb-26-group2-repo-to-your-own-github-account-and-clone-your-forked-copy-to-somewhere-on-your-local-machine-use-ssh-link-when-cloning-via-ssh-key-use-https-when-cloning-via-access-token)
+Step 0. [Repo Fork & Clone](#step-0-fork-this-dsb-26-group2-repo-to-your-own-github-account-and-clone-your-forked-copy-to-somewhere-on-your-local-machine)
 
 Step 1. [HPC Login](#step-1-log-into-the-uea-hpc)
 
@@ -55,7 +55,7 @@ Step 5. [Run sbatch and monitor job](#step-5-run-the-batch-script-to-study-the-c
 
 Step 6. [Determine biological sex from coverage](#step-6-identify-biological-sex-from-coverage-files-and-conclude)
 
-Step 7. [Optional plotting in R](#step-7-optional---plotting-the-output-in-r-programming-language)
+Step 7. [Visualize output in R programming language](#step-7-visualize-output-in-r-programming-language)
 
 ---
 ### Step 0. Fork this DSB-26-Group2 repo to your own GitHub account and Clone your forked copy to somewhere on your local machine
@@ -67,7 +67,7 @@ cd DSB-26-Group2
 ```
 *Replace `<your-username>` with your GitHub username.*
 
-### Step 1.  Log into the UEA HPC
+### Step 1. Log into the UEA HPC
 The whole process takes place on the UEA HPC server. Log into the HPC as follows:
 
 ```bash
@@ -85,8 +85,9 @@ interactive-bio-ds
 
 
 ### Step 2. Create required directories on HPC
+***Optional**: only required if not establishing GitHub repository onto the HPC*
+
 Create the required directories in your HPC scratch workspace before running the job script:
-Optional: only required if not establishing GitHub repository onto the HPC
 ```bash
 # Move into your HPC scratch workspace
 cd ~/scratch
@@ -167,8 +168,8 @@ Based on the `samtools coverage` output, compare chromosome X and Y mean depth a
 	- If chromosome X coverage is approximately half of autosomal coverage and chromosome Y has clear non-zero coverage, the sample is likely **XY** (male).
 
 
-### Step 7. Plotting the output in R programming language
-# To interpret the results, we use R to compare the sequencing depth of sex chromosomes (X and Y) against the autosomes (1-22).
+### Step 7. Visualize output in R programming language
+To interpret the results, we use R to compare the sequencing depth of sex chromosomes (X and Y) against the autosomes (1-22).
 
 **Tools**: RStudio (v2026.1+)
 
@@ -178,9 +179,11 @@ Based on the `samtools coverage` output, compare chromosome X and Y mean depth a
 
 **Script**: `RStudio_Code.txt`
 
-**Data**: Outputs from step 5 or `*_coverage.txt` files in `txt_output` folder.
+**Output**: Figures summarising sequencing depth across all chromosomes for each ERR sample. The bars represent coverage per chromosome and the overlaid line represents mean depth, allowing quick comparison of X/Y coverage versus autosomes to infer the sex karyotype XX vs XY.
 
-1. Transfer results to your local machine
+**Steps**:
+
+#### 1. Transfer results to your local machine
 Since RStudio is typically run on your personal computer, you first need to download the results from the HPC. Run this command on your local terminal:
 
 ```Bash
@@ -192,44 +195,40 @@ mkdir ~/Desktop/denisovan_results
 scp abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2/txt_output/*_coverage.txt ~/Desktop/denisovan_results/
 ```
 
-Alternatively, to access the .R script using the GitHub repo follow these instructions:
+#### Alternatively, to access the .R script using the GitHub repo follow these instructions:
 
-Open RStudio.
+- Open RStudio.
 
-Go to File > New Project...
+- Go to File > New Project...
 
-Select Version Control > Git.
+- Select Version Control > Git.
 
-In Repository URL, paste your fork's link: https://github.com/<your-username>/DSB-26-Group2.git
+- In Repository URL, paste your fork's link: `https://github.com/<your-username>/DSB-26-Group2.git`
 
-Click Create Project.
+- Click Create Project.
 
-RStudio will now download the entire repo, including RStudio_Code.R, to your computer.
+RStudio will now download the entire repo, including `RStudio_Code.R`, to your computer.
 
 Open the file from the Files pane (bottom right) and run your analysis.
 
 
-2. Run the R Script
+#### 2. Run the R Script
 Open RStudio and follow these steps:
 
-**Set Working Directory:** Go to Session > Set Working Directory > Choose Directory and select your denisovan_results folder.
+- **Set Working Directory:** Go to Session > Set Working Directory > Choose Directory and select your denisovan_results folder.
 
-**Load the Script:** Open RStudio_Code.R (also available in the repo).
+- **Load the Script:** Open RStudio_Code.R (also available in the repo).
 
-**Execute:** Highlight the code and press Ctrl+Enter (Windows) or Cmd+Enter (Mac).
-
-**Output**: Figures summarising sequencing depth across all chromosomes for each ERR sample. The bars represent coverage per chromosome and the overlaid line represents mean depth, allowing quick comparison of X/Y coverage versus autosomes to infer the sex karyotype XX vs XY.
+- **Execute:** Highlight the code and press Ctrl+Enter (Windows) or Cmd+Enter (Mac).
 
 --- 
 **Git Troubleshooting:** 
-Commands for GitHub are run in the terminal of .RStudio
-
-To verify GitHub is installed, run command:
+- Commands for GitHub are run in the terminal of .RStudio.
+- To verify if GitHub is installed, run command:
 ```Bash
 git status
-
 ```
-`Git` must be installed and available in RStudio to access GitHub from within RStudio.
+- `Git` must be installed and available in RStudio to access GitHub from within RStudio.
 
 ---
 
