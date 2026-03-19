@@ -36,7 +36,7 @@ ggplot(Seq1)
 ggplot(Seq1, aes(x= rname,
                  y= coverage,
                  colour = Coverage)) +
-                ggsave("ERR145618_Plot.png", width = 10, height = 6, dpi = 300) +
+ #               ggsave("ERR145618_Plot.png", width = 10, height = 6, dpi = 300) +
 
   # GEOM_BAR: Displays % coverage. 
   # Create bar chart on the primary y-axis
