@@ -181,6 +181,8 @@ To interpret the results, we use R to compare the sequencing depth of sex chromo
 
 **Output**: Figures summarising sequencing depth across all chromosomes for each ERR sample. The bars represent coverage per chromosome and the overlaid line represents mean depth, allowing quick comparison of X/Y coverage versus autosomes to infer the sex karyotype XX vs XY.
 
+---
+
 **Steps**:
 
 #### 1. Transfer results to your local machine
