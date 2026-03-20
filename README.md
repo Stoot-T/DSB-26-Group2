@@ -175,9 +175,9 @@ To interpret the results, we use R to compare the sequencing depth of sex chromo
 
 **Packages**: ggplot2 4.0.2, dplyr 1.2.0, readr 2.2.0
 
-**Input**: *_coverage.txt files generated in Step 5.
+**Input**: `*_coverage.txt` files generated in Step 5.
 
-**Script**: `RStudio_Code.txt`
+**Script**: `RStudio_Code.R`
 
 **Output**: Figures summarising sequencing depth across all chromosomes for each ERR sample. The bars represent coverage per chromosome and the overlaid line represents mean depth, allowing quick comparison of X/Y coverage versus autosomes to infer the sex karyotype XX vs XY.
 
@@ -209,7 +209,7 @@ scp abc12xyz@hali.uea.ac.uk:~/scratch/DSB-26-Group2/txt_output/*_coverage.txt ~/
 
 - Click Create Project.
 
-RStudio will now download the entire repo, including `RStudio_Code.txt`, to your computer.
+RStudio will now download the entire repo, including `RStudio_Code.R`, to your computer.
 
 Open the file from the Files pane (bottom right) and run your analysis.
 
@@ -219,7 +219,7 @@ Open RStudio and follow these steps:
 
 - **Set Working Directory:** Go to Session > Set Working Directory > Choose Directory and select your denisovan_results folder.
 
-- **Load the Script:** Open `RStudio_Code.txt` (also available in the repo).
+- **Load the Script:** Open `RStudio_Code.R` (also available in the repo).
 
 - **Execute:** Highlight the code and press Ctrl+Enter (Windows) or Cmd+Enter (Mac).
 
